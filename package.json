@@ -14,7 +14,6 @@
     "@carbon/layout": "^11.45.0",
     "@carbon/themes": "^11.65.0",
     "@carbon/type": "^11.51.0",
-    "@microlink/react-json-view": "^1.27.1",
     "autoprefixer": "^10.4.23",
     "lucide-react": "^0.562.0",
     "openai": "^6.16.0",
