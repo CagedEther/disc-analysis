@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactJson from '@microlink/react-json-view';
 import { Copy, CheckCheck, TrendingUp } from 'lucide-react';
 import type { DISCAnalysisResult } from '../constants/discFramework';
 import { copyToClipboard } from '../utils/copyToClipboard';
