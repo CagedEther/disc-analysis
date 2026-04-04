@@ -1,11 +1,22 @@
-// DISC Profile Analysis Framework
-// This framework is embedded directly in the app and used for transcript analysis
+// DISC Profile Analysis Framework v2
+// Enhanced framework with theoretical grounding, computational markers, few-shot examples, and validity checks
 
-export const DISC_FRAMEWORK = `# DISC Profile Analysis Framework
+export const DISC_FRAMEWORK = `# DISC Profile Analysis Framework v2
 
 ## Analysis Objective
 
-Analyze the provided transcript text to determine the speaker's DISC behavioral profile. Output the **primary dimension** (strongest) and optionally a **secondary dimension** (if clearly present). Each dimension should include a confidence level and supporting evidence from the transcript.
+Analyze the provided transcript to determine the speaker's DISC behavioral profile. Output the **primary dimension** (strongest) and optionally a **secondary dimension** (if clearly present). Provide confidence level and supporting evidence from the transcript.
+
+---
+
+## Theoretical Foundation
+
+The DISC model maps behavior along two psychological axes derived from William Moulton Marston's work:
+
+- **Vertical Axis (Pace):** Active/Bold vs. Passive/Reserved — reflects perceived power relative to environment. High-power individuals (D, I) speak assertively and drive conversations; low-power individuals (S, C) adapt and respond methodically.
+- **Horizontal Axis (Priority):** Task-Focused vs. People-Focused — reflects environmental perception. Task-oriented styles (D, C) see the environment as challenging and prioritize outcomes; people-oriented styles (I, S) see it as favorable and prioritize relationships.
+
+This creates four quadrants where linguistic patterns cluster predictably.
 
 ---
 
@@ -27,29 +38,33 @@ Analyze the provided transcript text to determine the speaker's DISC behavioral 
 
 ## Analysis Criteria
 
-Evaluate the transcript against the following markers for each dimension. Assign higher weight to patterns that appear consistently throughout the text.
+Evaluate the transcript against the following markers. Assign higher weight to patterns that appear consistently.
 
 ### Dominance (D) Indicators
 
 | Category | What to Look For |
 |----------|------------------|
 | **Vocabulary** | Action verbs, achievement words ("win," "goal," "results," "deliver," "now," "must"), direct commands |
-| **Sentence Structure** | Short, declarative sentences; imperatives; statements over questions |
+| **Sentence Structure** | Short, declarative sentences; imperatives; statements over questions; low word-count per sentence |
 | **Conversational Style** | Interrupts or redirects; drives toward decisions; limits small talk; impatient with details |
 | **Focus** | "What" and "when" over "why" or "how"; bottom-line orientation |
 | **Tone** | Confident, assertive, commanding; may appear blunt |
-| **Key Phrases** | "Let's just do it," "What's the bottom line?", "We need to move on," "Here's what we're going to do" |
+| **Computational Markers** | High 1st-person agentivity ("I decided," "I'll handle"); absence of hedging; active voice dominant |
+| **Key Phrases** | "Let's just do it," "What's the bottom line?", "We need to move on," "Here's what we're going to do," "No excuses" |
+| **Anti-patterns (rules OUT D)** | Heavy hedging ("maybe," "perhaps"); consensus-seeking questions; long explanations before action |
 
 ### Influence (I) Indicators
 
 | Category | What to Look For |
 |----------|------------------|
-| **Vocabulary** | Positive emotion words ("excited," "love," "amazing," "great"), social words ("we," "together," "team") |
-| **Sentence Structure** | Expressive, longer sentences; storytelling; exclamations |
+| **Vocabulary** | Positive emotion words ("excited," "love," "amazing," "great," "incredible"), social words ("we," "together," "team") |
+| **Sentence Structure** | Expressive, longer sentences; storytelling; exclamations; high lexical diversity |
 | **Conversational Style** | Shares personal anecdotes; uses humor; enthusiastic; may go off-topic; animated |
-| **Focus** | People and relationships; big-picture ideas; collaborative outcomes |
+| **Focus** | People and relationships; big-picture ideas; collaborative outcomes; social recognition |
 | **Tone** | Warm, upbeat, optimistic, energetic |
-| **Key Phrases** | "This is so exciting!", "I was just telling someone...", "Wouldn't it be great if...", "We should celebrate" |
+| **Computational Markers** | High exclamation mark usage; metaphors and hyperbole; references to others by name; storytelling structure |
+| **Key Phrases** | "This is so exciting!", "I was just telling someone...", "Wouldn't it be great if...", "We should celebrate," "Oh my gosh" |
+| **Anti-patterns (rules OUT I)** | Flat affect; data-heavy language; avoiding social references; formal/reserved tone |
 
 ### Steadiness (S) Indicators
 
@@ -60,7 +75,9 @@ Evaluate the transcript against the following markers for each dimension. Assign
 | **Conversational Style** | Listens more than speaks; waits turn; doesn't interrupt; affirms others; avoids conflict |
 | **Focus** | Team harmony; process stability; how changes affect people |
 | **Tone** | Calm, patient, warm, accommodating; may seem passive |
+| **Computational Markers** | High 1st-person plural ("we," "us," "our"); epistemic hedging ("maybe," "perhaps," "might"); politeness markers |
 | **Key Phrases** | "Whatever works for everyone," "I want to make sure we're all comfortable," "Let me help with that," "How does the team feel?" |
+| **Anti-patterns (rules OUT S)** | Direct commands; competitive language; rushing others; conflict initiation |
 
 ### Conscientiousness (C) Indicators
 
@@ -71,7 +88,9 @@ Evaluate the transcript against the following markers for each dimension. Assign
 | **Conversational Style** | Asks clarifying questions; provides detailed explanations; cautious before committing; points out risks |
 | **Focus** | Accuracy, quality, the "why" behind decisions; evidence-based reasoning |
 | **Tone** | Measured, formal, objective; may seem reserved or critical |
+| **Computational Markers** | Comparative structures ("as...as," "more than"); numerical references; formal register; complex syntax |
 | **Key Phrases** | "Let me think about that," "The data suggests...," "What's the rationale?", "We should consider the risks," "To be precise..." |
+| **Anti-patterns (rules OUT C)** | Vague generalizations; emotion-based arguments; rushing to decisions without analysis |
 
 ---
 
@@ -116,6 +135,7 @@ For each dimension, identify and count:
 - Matching vocabulary/phrases (list specific examples)
 - Matching sentence patterns
 - Matching conversational behaviors
+- Check anti-patterns (reduce score if present)
 
 ### Step 2: Dimension Scoring
 Rate each dimension on strength of evidence:
@@ -131,8 +151,9 @@ Rate each dimension on strength of evidence:
 ### Step 3: Profile Determination
 
 1. **Primary Dimension:** Highest scoring dimension (must be score 2+)
-2. **Secondary Dimension:** Second-highest scoring dimension (only include if score 2+ AND within 2 points of primary)
-3. **Confidence Level:** Based on evidence quantity and consistency
+2. **Secondary Dimension:** Second-highest scoring dimension (only include if score 2+ AND within 1 point of primary)
+3. **Blended Profile:** If two dimensions score within 1 point, report as blend (e.g., "Di" or "SC")
+4. **Confidence Level:** Based on evidence quantity and consistency
 
 | Confidence | Criteria |
 |------------|----------|
@@ -142,26 +163,67 @@ Rate each dimension on strength of evidence:
 
 ---
 
-## Important Considerations
+## Few-Shot Examples
+
+### Example 1: High Dominance (D)
+**Transcript excerpt:**
+> "Okay, let's get started. We need to wrap this up in the next 30 minutes. Here's the bottom line - we're behind schedule and we need to catch up fast. I've already made the decision to move forward with option A. No excuses. If there are blockers, escalate them to me immediately and I'll handle it. Let's execute."
+
+**Analysis:**
+- **D Score: 4** — Imperatives ("let's get started," "let's execute"), bottom-line language, short declarative sentences, time pressure, unilateral decisions ("I've already made the decision"), action focus
+- **I Score: 1** — Minimal; "team" implied but no enthusiasm or storytelling
+- **S Score: 0** — No hedging, no consensus-seeking, no accommodation
+- **C Score: 1** — Mentions blockers but no detailed analysis
+- **Result:** Primary D, High confidence
+
+### Example 2: High Influence (I)
+**Transcript excerpt:**
+> "Oh my gosh, I'm so excited about this project! This is going to be amazing, everyone. I was just telling Sarah yesterday about how incredible this team is. Wouldn't it be great if we could get everyone from the other departments involved too? By the way, did anyone see that presentation last week? It was so inspiring!"
+
+**Analysis:**
+- **D Score: 1** — Minimal directness
+- **I Score: 4** — Exclamations ("Oh my gosh!"), positive emotion words ("excited," "amazing," "incredible," "inspiring"), storytelling ("I was just telling Sarah"), name-dropping, tangents, collaborative vision
+- **S Score: 2** — Some team focus, inclusive language
+- **C Score: 0** — No data, no analysis, no caution
+- **Result:** Primary I, Secondary S possible, High confidence
+
+### Example 3: High Conscientiousness (C)
+**Transcript excerpt:**
+> "Before we proceed, I'd like to review the data from the last quarter to ensure we're making an evidence-based decision. The analysis shows three potential risks we need to consider. Specifically, if we choose option B, we need to account for the 15% variance in the projections. What's the rationale behind prioritizing speed over accuracy here?"
+
+**Analysis:**
+- **D Score: 1** — Some directness but questioning, not commanding
+- **I Score: 0** — No enthusiasm, no social focus
+- **S Score: 1** — Wants team consideration but focused on process, not harmony
+- **C Score: 4** — Data references, evidence-based language, risk analysis, precision ("15% variance," "specifically"), questioning rationale, formal register
+- **Result:** Primary C, High confidence
+
+---
+
+## Validity Checks
 
 ### Minimum Data Threshold
 - **Ideal:** 350+ words for reliable assessment
 - **Minimum:** 150 words for tentative assessment
 - **Below 150 words:** Flag as "Insufficient data for reliable assessment"
 
-### Context Awareness
-- People adapt their communication style to context (e.g., more formal with executives)
-- Single-topic discussions may not reveal full profile
-- High-stress situations can amplify or mask certain traits
-- Consider the speaker's role in the conversation (presenter, participant, facilitator)
+### Social Desirability Bias (SDB) Awareness
+Watch for signs the speaker may be managing their image:
+- Over-reporting benevolence or team-focus (inflated S signals)
+- Vague, non-committal responses that avoid specifics (paltering)
+- Vocabulary mismatches (overly formal words that seem coached)
+- Heavy use of "Ethics" or "Values" language without specific examples
 
-### Common Blends
-Frequently observed combinations:
-- **D/I:** Bold, outgoing, action-oriented leaders
-- **D/C:** Direct, analytical, results-focused
-- **I/S:** Warm, supportive, relationship-builders
-- **S/C:** Methodical, reliable, detail-conscious
-- **C/S:** Thoughtful, careful, quality-focused
+If SDB is suspected, weight behavioral patterns (sentence structure, pace) more heavily than vocabulary choices.
+
+### Context Adjustment
+Consider context when interpreting indicators:
+- **Formal settings** (executive presentations): May inflate C/D signals
+- **Casual settings** (team chat): May inflate I/S signals
+- **High-stress situations:** Can amplify D or mask S
+- **Role-specific:** A facilitator may show S behaviors regardless of natural style
+
+Note the context in your assessment if it may be affecting the results.
 
 ---
 
@@ -175,6 +237,17 @@ Frequently observed combinations:
 | **S vs. C** | S prioritizes harmony; C prioritizes correctness |
 | **Assertive D vs. Assertive I** | D: "Here's what we're doing"; I: "Isn't this exciting!" |
 | **Reserved S vs. Reserved C** | S: "How does everyone feel?"; C: "What does the data say?" |
+
+---
+
+## Common Blends
+
+| Blend | Core Characteristics | Linguistic Signature |
+|-------|---------------------|----------------------|
+| **Di / iD** | Active, dynamic, bold leaders | Direct commands + enthusiasm |
+| **iS / Si** | Warm, supportive, relationship-builders | Positive affect + consensus-seeking |
+| **SC / CS** | Careful, modest, quality-focused | Hedging + precision language |
+| **DC / CD** | Questioning, skeptical, results-driven | Direct + analytical |
 `;
 
 export type DISCDimension = 'D' | 'I' | 'S' | 'C';
@@ -196,6 +269,7 @@ export interface DetailedBreakdown {
 export interface DISCAnalysisResult {
   overall_profile: {
     primary: DISCDimension;
+    secondary?: DISCDimension;
     scores: DISCScore;
     summary: string;
   };
