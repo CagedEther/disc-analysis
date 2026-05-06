@@ -138,28 +138,28 @@ For each dimension, identify and count:
 - Check anti-patterns (reduce score if present)
 
 ### Step 2: Dimension Scoring
-Rate each dimension on strength of evidence:
+Rate each dimension 0–100 based on strength of evidence:
 
-| Score | Label | Criteria |
-|-------|-------|----------|
-| 0 | None | No meaningful indicators present |
-| 1 | Weak | 1-2 isolated indicators; could be situational |
-| 2 | Moderate | 3-5 indicators; some pattern emerging |
-| 3 | Strong | 6+ indicators; consistent pattern across transcript |
-| 4 | Dominant | Pervasive pattern; defines communication style |
+| Score Range | Label | Criteria |
+|-------------|-------|----------|
+| 0–20 | None | No meaningful indicators present |
+| 21–40 | Weak | 1-2 isolated indicators; could be situational |
+| 41–60 | Moderate | 3-5 indicators; some pattern emerging |
+| 61–80 | Strong | 6+ indicators; consistent pattern across transcript |
+| 81–100 | Dominant | Pervasive pattern; defines communication style |
 
 ### Step 3: Profile Determination
 
-1. **Primary Dimension:** Highest scoring dimension (must be score 2+)
-2. **Secondary Dimension:** Second-highest scoring dimension (only include if score 2+ AND within 1 point of primary)
-3. **Blended Profile:** If two dimensions score within 1 point, report as blend (e.g., "Di" or "SC")
+1. **Primary Dimension:** Highest scoring dimension (must score 40+)
+2. **Secondary Dimension:** Second-highest scoring dimension (only include if score 40+ AND within 15 points of primary)
+3. **Blended Profile:** If two dimensions score within 15 points, report as blend (e.g., "Di" or "SC")
 4. **Confidence Level:** Based on evidence quantity and consistency
 
 | Confidence | Criteria |
 |------------|----------|
-| **High** | Primary score 4; clear differentiation from others; 350+ words analyzed |
-| **Medium** | Primary score 3; reasonable differentiation; 150-350 words |
-| **Low** | Primary score 2; limited differentiation or <150 words |
+| **High** | Primary score 80+; clear differentiation from others; 350+ words analyzed |
+| **Medium** | Primary score 60+; reasonable differentiation; 150-350 words |
+| **Low** | Primary score 40+; limited differentiation or <150 words |
 
 ---
 
@@ -170,10 +170,10 @@ Rate each dimension on strength of evidence:
 > "Okay, let's get started. We need to wrap this up in the next 30 minutes. Here's the bottom line - we're behind schedule and we need to catch up fast. I've already made the decision to move forward with option A. No excuses. If there are blockers, escalate them to me immediately and I'll handle it. Let's execute."
 
 **Analysis:**
-- **D Score: 4** — Imperatives ("let's get started," "let's execute"), bottom-line language, short declarative sentences, time pressure, unilateral decisions ("I've already made the decision"), action focus
-- **I Score: 1** — Minimal; "team" implied but no enthusiasm or storytelling
+- **D Score: 90** — Imperatives ("let's get started," "let's execute"), bottom-line language, short declarative sentences, time pressure, unilateral decisions ("I've already made the decision"), action focus
+- **I Score: 20** — Minimal; "team" implied but no enthusiasm or storytelling
 - **S Score: 0** — No hedging, no consensus-seeking, no accommodation
-- **C Score: 1** — Mentions blockers but no detailed analysis
+- **C Score: 20** — Mentions blockers but no detailed analysis
 - **Result:** Primary D, High confidence
 
 ### Example 2: High Influence (I)
@@ -181,9 +181,9 @@ Rate each dimension on strength of evidence:
 > "Oh my gosh, I'm so excited about this project! This is going to be amazing, everyone. I was just telling Sarah yesterday about how incredible this team is. Wouldn't it be great if we could get everyone from the other departments involved too? By the way, did anyone see that presentation last week? It was so inspiring!"
 
 **Analysis:**
-- **D Score: 1** — Minimal directness
-- **I Score: 4** — Exclamations ("Oh my gosh!"), positive emotion words ("excited," "amazing," "incredible," "inspiring"), storytelling ("I was just telling Sarah"), name-dropping, tangents, collaborative vision
-- **S Score: 2** — Some team focus, inclusive language
+- **D Score: 20** — Minimal directness
+- **I Score: 90** — Exclamations ("Oh my gosh!"), positive emotion words ("excited," "amazing," "incredible," "inspiring"), storytelling ("I was just telling Sarah"), name-dropping, tangents, collaborative vision
+- **S Score: 45** — Some team focus, inclusive language
 - **C Score: 0** — No data, no analysis, no caution
 - **Result:** Primary I, Secondary S possible, High confidence
 
@@ -192,10 +192,10 @@ Rate each dimension on strength of evidence:
 > "Before we proceed, I'd like to review the data from the last quarter to ensure we're making an evidence-based decision. The analysis shows three potential risks we need to consider. Specifically, if we choose option B, we need to account for the 15% variance in the projections. What's the rationale behind prioritizing speed over accuracy here?"
 
 **Analysis:**
-- **D Score: 1** — Some directness but questioning, not commanding
+- **D Score: 20** — Some directness but questioning, not commanding
 - **I Score: 0** — No enthusiasm, no social focus
-- **S Score: 1** — Wants team consideration but focused on process, not harmony
-- **C Score: 4** — Data references, evidence-based language, risk analysis, precision ("15% variance," "specifically"), questioning rationale, formal register
+- **S Score: 20** — Wants team consideration but focused on process, not harmony
+- **C Score: 90** — Data references, evidence-based language, risk analysis, precision ("15% variance," "specifically"), questioning rationale, formal register
 - **Result:** Primary C, High confidence
 
 ---

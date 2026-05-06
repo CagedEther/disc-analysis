@@ -7,6 +7,8 @@ interface ReportDisplayProps {
   result: DISCAnalysisResult;
 }
 
+const clampScore = (score: number) => Math.min(Math.max(Math.round(score), 0), 100);
+
 export const ReportDisplay: React.FC<ReportDisplayProps> = ({ result }) => {
   const [copied, setCopied] = React.useState(false);
 
@@ -120,7 +122,7 @@ export const ReportDisplay: React.FC<ReportDisplayProps> = ({ result }) => {
             Top Score
           </h3>
           <p className="text-5xl font-bold text-carbon-blue-60 mb-2">
-            {Math.max(...Object.values(result.overall_profile.scores))}
+            {Math.max(...Object.values(result.overall_profile.scores).map(clampScore))}
           </p>
           <p className="text-sm text-carbon-gray-90 font-medium">
             out of 100
@@ -134,30 +136,32 @@ export const ReportDisplay: React.FC<ReportDisplayProps> = ({ result }) => {
           DISC Score Breakdown
         </h3>
         <div className="space-y-4">
-          {Object.entries(result.overall_profile.scores).map(([dimension, score]) => (
-            <div key={dimension}>
-              <div className="flex justify-between mb-2">
-                <span className={`text-sm font-bold ${getDimensionColor(dimension)} font-ibm-plex-mono uppercase tracking-wider`}>
-                  {dimension} - {dimension === 'D' && 'Dominance'}
-                  {dimension === 'I' && 'Influence'}
-                  {dimension === 'S' && 'Steadiness'}
-                  {dimension === 'C' && 'Conscientiousness'}
-                </span>
-                <span className="text-sm font-bold text-carbon-gray-100 font-ibm-plex-mono">{score}</span>
+          {Object.entries(result.overall_profile.scores).map(([dimension, rawScore]) => {
+            const score = clampScore(rawScore);
+            return (
+              <div key={dimension}>
+                <div className="flex justify-between mb-2">
+                  <span className={`text-sm font-bold ${getDimensionColor(dimension)} font-ibm-plex-mono uppercase tracking-wider`}>
+                    {dimension} - {dimension === 'D' && 'Dominance'}
+                    {dimension === 'I' && 'Influence'}
+                    {dimension === 'S' && 'Steadiness'}
+                    {dimension === 'C' && 'Conscientiousness'}
+                  </span>
+                  <span className="text-sm font-bold text-carbon-gray-100 font-ibm-plex-mono">{score}</span>
+                </div>
+                <div className="w-full bg-carbon-gray-20 h-3 relative overflow-hidden">
+                  <div
+                    className={`h-3 transition-all duration-500 ${getDimensionBgColor(dimension)}`}
+                    style={{ width: `${score}%` }}
+                  />
+                  <div
+                    className="absolute top-0 h-full w-0.5 bg-carbon-gray-100 opacity-50"
+                    style={{ left: `${score}%` }}
+                  />
+                </div>
               </div>
-              <div className="w-full bg-carbon-gray-20 h-3 relative overflow-hidden">
-                <div
-                  className={`h-3 transition-all duration-500 ${getDimensionBgColor(dimension)}`}
-                  style={{ width: `${score}%` }}
-                />
-                {/* Score indicator line */}
-                <div 
-                  className="absolute top-0 h-full w-0.5 bg-carbon-gray-100 opacity-50"
-                  style={{ left: `${score}%` }}
-                />
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -184,7 +188,7 @@ export const ReportDisplay: React.FC<ReportDisplayProps> = ({ result }) => {
                   {item.trait}
                 </h4>
                 <span className="text-sm font-bold text-carbon-gray-100 font-ibm-plex-mono">
-                  {item.score}/100
+                  {clampScore(item.score)}/100
                 </span>
               </div>
               <p className="text-sm text-carbon-gray-90 mb-3 leading-relaxed">
